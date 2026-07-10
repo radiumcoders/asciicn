@@ -67,7 +67,7 @@ export function DocsCodeView(props: DocsCodeViewProps) {
           className="docs-code-view my-4 overflow-hidden border border-border bg-background"
         >
           <div className="flex h-10 items-center justify-between gap-2 px-3">
-            <figcaption
+            <div
               className="flex h-8 min-w-0 items-center gap-1.5 text-xs leading-none text-muted-foreground [&_svg]:size-3.5"
               data-language={language}
             >
@@ -88,23 +88,21 @@ export function DocsCodeView(props: DocsCodeViewProps) {
                 </span>
               )}
               <span className="font-mono leading-none">{language}</span>
-            </figcaption>
+            </div>
             <CopyButton className="shrink-0 self-center" code={code} />
           </div>
-          <figure>
-            <div className="bg-background px-3 shadow-none">
-              <pre
-                className={cn(
-                  "docs-scroll shiki shiki-themes overflow-x-auto bg-transparent p-0 text-sm not-prose",
-                  docsShikiThemeClass,
-                  className
-                )}
-                {...rest}
-              >
-                {children}
-              </pre>
-            </div>
-          </figure>
+          <div className="border-t border-border px-3">
+            <pre
+              className={cn(
+                "docs-scroll shiki shiki-themes overflow-x-auto bg-transparent p-2 text-sm not-prose",
+                docsShikiThemeClass,
+                className
+              )}
+              {...rest}
+            >
+              {children}
+            </pre>
+          </div>
         </div>
       )
     }
