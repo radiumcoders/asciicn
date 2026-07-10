@@ -92,9 +92,3 @@ registry.json         # Registry manifest
 - [Documentation](https://github.com/radiumcoders/asciicn/tree/master/content/docs)
 - [Components](https://github.com/radiumcoders/asciicn/tree/master/content/docs/components)
 - [shadcn/ui](https://ui.shadcn.com)
-
-<p align="center">
-  <a href="https://github.com/radiumcoders/asciicn/graphs/contributors">
-    <img src="https://shieldcn.dev/contributors/radiumcoders/asciicn.svg?theme=zinc&limit=12" alt="contributors" />
-  </a>
-</p>
