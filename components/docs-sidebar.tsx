@@ -5,16 +5,12 @@ import { usePathname } from "next/navigation"
 import { useEffect, useState, type ReactNode } from "react"
 import { RiCloseLine, RiMenuLine } from "@remixicon/react"
 
-import type { DocsNavGroup } from "@/lib/docs-nav"
+import { isNavLinkActive, type DocsNavGroup } from "@/lib/docs-nav"
 import { cn } from "@/lib/utils"
 
 type DocsSidebarProps = {
   navGroups: DocsNavGroup[]
   brand: ReactNode
-}
-
-function isPageActive(pathname: string, url: string) {
-  return pathname === url || pathname.startsWith(`${url}/`)
 }
 
 function DocsNavGroup({
@@ -38,7 +34,7 @@ function DocsNavGroup({
       <nav className="flex flex-col gap-px">
         {pages.map((page) => {
           const active =
-            isPageActive(pathname, page.url) ||
+            isNavLinkActive(pathname, page.url) ||
             (pathname === "/docs" && page.url === defaultPageUrl)
 
           return (

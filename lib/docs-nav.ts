@@ -71,6 +71,14 @@ export function getDocsNavGroups(): DocsNavGroup[] {
   return groups
 }
 
+export function isNavLinkActive(pathname: string, url: string) {
+  if (url === "/") return pathname === "/"
+  if (pathname === url) return true
+  // /docs is the docs index; don't match sibling /docs/* routes.
+  if (url === "/docs") return false
+  return pathname.startsWith(`${url}/`)
+}
+
 export function getDefaultDocsPage() {
   const pages = source
     .getPages()

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type { ReactNode } from "react"
 
+import { isNavLinkActive } from "@/lib/docs-nav"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -30,11 +31,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
             <nav className="flex flex-col gap-0.5">
               {navItems.map((item) => {
-                const isActive =
-                  item.href === "/"
-                    ? pathname === "/"
-                    : pathname === item.href ||
-                      pathname.startsWith(`${item.href}/`)
+                const isActive = isNavLinkActive(pathname, item.href)
 
                 return (
                   <Link
