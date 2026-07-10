@@ -5,8 +5,7 @@ description: Registry components shipped from components/asciicn.
 
 import { AsciiBadge } from "@/components/asciicn/ascii-badge"
 
-Components in this registry are authored under `components/asciicn` and
-published as built JSON under `/r`.
+Registry components authored under `components/asciicn`.
 
 ## Ascii Badge
 
@@ -17,9 +16,7 @@ Monochrome badge used as a sample registry item.
   <AsciiBadge variant="outline">outline</AsciiBadge>
 </ComponentPreview>
 
-```bash
-pnpm dlx shadcn@latest add @asciicn/ascii-badge
-```
+<Cmd>@asciicn/ascii-badge</Cmd>
 
 ```tsx
 import { AsciiBadge } from "@/components/asciicn/ascii-badge"
@@ -37,11 +34,3 @@ export function Example() {
 ### Source
 
 `components/asciicn/ascii-badge.tsx`
-
-### Built registry
-
-- Index: `/r/registry.json`
-- Item: `/r/ascii-badge.json`
-
-Add more components by dropping files into `components/asciicn` and running
-`pnpm registry` (or restarting `pnpm dev`).

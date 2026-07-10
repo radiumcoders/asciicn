@@ -42,23 +42,31 @@ function folderPages(folder: PageTree.Folder): DocsNavPage[] {
 export function getDocsNavGroups(): DocsNavGroup[] {
   const tree = source.getPageTree()
   const groups: DocsNavGroup[] = []
+  let rootPages: DocsNavPage[] = []
+
+  const flushRootPages = () => {
+    if (rootPages.length === 0) return
+    groups.push({ title: "Documentation", pages: rootPages })
+    rootPages = []
+  }
 
   for (const node of tree.children) {
+    if (node.type === "page" && !node.external) {
+      rootPages.push({ title: toTitle(node.name), url: node.url })
+      continue
+    }
+
+    flushRootPages()
+
     if (node.type === "folder") {
       const pages = folderPages(node)
       if (pages.length > 0) {
         groups.push({ title: toTitle(node.name), pages })
       }
-      continue
-    }
-
-    if (node.type === "page" && !node.external) {
-      groups.push({
-        title: "Guide",
-        pages: [{ title: toTitle(node.name), url: node.url }],
-      })
     }
   }
+
+  flushRootPages()
 
   return groups
 }

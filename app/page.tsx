@@ -21,14 +21,14 @@ export default function Page() {
 
         <div className="flex flex-wrap gap-2">
           <Button nativeButton={false} render={<Link href="/docs" />}>
-            Open docs
+            Introduction
           </Button>
           <Button
             variant="outline"
             nativeButton={false}
-            render={<Link href="/docs/registry" />}
+            render={<Link href="/docs/getting-started" />}
           >
-            Registry setup
+            Getting started
           </Button>
         </div>
 

@@ -181,14 +181,24 @@
   scroll-margin-top: 5rem;
 }
 
-.docs-content figure.docs-code-block {
-  box-shadow: none;
+.docs-content .docs-code-view .shiki,
+.docs-content .shiki {
+  background-color: transparent !important;
 }
 
-.docs-content figure.docs-code-block [class*="backdrop-blur"] {
-  backdrop-filter: none;
+.docs-content .docs-code-view code span,
+.docs-content .shiki code span {
+  color: var(--shiki-light);
+  font-style: var(--shiki-light-font-style);
 }
 
-.docs-content figure.docs-code-block [role="region"] {
-  padding-block: calc(var(--spacing) * 0.5);
+.dark .docs-content .docs-code-view code span,
+.dark .docs-content .shiki code span {
+  color: var(--shiki-dark);
+  font-style: var(--shiki-dark-font-style);
+}
+
+.docs-content .docs-code-view .line {
+  padding-left: 0;
+  padding-right: 0;
 }

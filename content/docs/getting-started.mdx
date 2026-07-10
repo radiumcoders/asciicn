@@ -1,0 +1,41 @@
+---
+title: Getting Started
+description: Install asciicn components and run the project locally.
+---
+
+## Install a component
+
+Add a component from the asciicn registry with the shadcn CLI:
+
+<Cmd>@asciicn/ascii-badge</Cmd>
+
+Configure your consumer `components.json` with the registry URL when you host this project:
+
+```json
+{
+  "registries": {
+    "@asciicn": "https://your-domain.com/r/{name}.json"
+  }
+}
+```
+
+## Local development
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Open [http://localhost:3000/docs](http://localhost:3000/docs).
+
+`pnpm dev` and `pnpm build` regenerate registry JSON from `components/asciicn` automatically.
+
+## Add a component
+
+Create a file under `components/asciicn`, then restart dev or run:
+
+```bash
+pnpm registry
+```
+
+Browse the updated list on the [Components](/docs/components) page.

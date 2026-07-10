@@ -15,8 +15,8 @@ export function baseOptions(): BaseLayoutProps {
     },
     links: [
       {
-        text: "Registry",
-        url: "/docs/registry",
+        text: "Getting Started",
+        url: "/docs/getting-started",
         active: "nested-url",
       },
       {
