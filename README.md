@@ -1,9 +1,3 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/radiumcoders/asciicn/master/public/readme-header-dark.svg" />
-    <img alt="asciicn — A library of ASCII components" src="https://raw.githubusercontent.com/radiumcoders/asciicn/master/public/readme-header-light.svg" />
-  </picture>
-</p>
 
 <p align="center">
   <a href="https://github.com/radiumcoders/asciicn/stargazers">
