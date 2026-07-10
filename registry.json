@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "asciicn",
+  "homepage": "https://asciicn.local/docs",
+  "items": [
+    {
+      "name": "ascii-badge",
+      "type": "registry:ui",
+      "title": "Ascii Badge",
+      "description": "ASCII-styled Ascii Badge component from asciicn.",
+      "files": [
+        {
+          "path": "components/asciicn/ascii-badge.tsx",
+          "type": "registry:ui",
+          "target": "components/asciicn/ascii-badge.tsx"
+        }
+      ]
+    }
+  ]
+}

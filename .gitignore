@@ -15,6 +15,12 @@
 /.next/
 /out/
 
+# fumadocs
+.source/
+
+# generated shadcn registry payloads
+/public/r/
+
 # production
 /build
 

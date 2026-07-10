@@ -1,0 +1,36 @@
+---
+pid: 7064
+cwd: "C:\mainer\asciicn"
+command: "Set-Location C:\\mainer\\asciicn; pnpm registry; pnpm dev"
+started_at: 2026-07-09T15:35:26.442Z
+running_for_ms: 6320000  
+---
+$ node scripts/build-registry.mjs
+✓ Wrote registry.json (1 item)
+- Building ascii-badge...
+✓ Built registry JSON files → public/r
+√ Building registry.
+$ pnpm registry && next dev
+✓ Wrote registry.json (1 item)
+$ node scripts/build-registry.mjs
+- Building ascii-badge...
+✓ Built registry JSON files → public/r
+√ Building registry.
+▲ Next.js 16.2.6 (Turbopack)
+⚠ Port 3000 is in use by process 14124, using available port 3001 instead.
+- Local:         http://localhost:3001
+- Network:       http://192.168.29.119:3001
+✓ Ready in 617ms
+[MDX] generated files in 9.392000000000053ms
+[MDX] started dev server
+[MDX] closing dev server
+⨯ Another next dev server is already running.
+
+
+- Local:        http://localhost:3000
+- PID:          14124
+- Dir:          C:\mainer\asciicn
+- Log:          .next\dev\logs\next-development.log
+
+Run taskkill /PID 14124 /F to stop it.
+[ELIFECYCLE] Command failed with exit code 1.
