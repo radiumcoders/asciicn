@@ -19,7 +19,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex h-full min-h-0 flex-1">
-      <aside className="docs-scroll hidden h-full w-52 shrink-0 self-stretch overflow-y-auto border-r border-sidebar-border bg-sidebar p-4 text-sidebar-foreground md:flex md:flex-col">
+      <aside className="docs-scroll hidden h-full w-52 shrink-0 self-stretch overflow-y-auto border-r border-border bg-background p-4 text-foreground md:flex md:flex-col">
         <div className="flex min-h-full flex-1 flex-col">
           <div className="flex flex-col gap-6">
             <Link

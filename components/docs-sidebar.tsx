@@ -75,7 +75,7 @@ export function DocsSidebar({ navGroups, brand }: DocsSidebarProps) {
     <>
       <aside
         className={cn(
-          "docs-scroll fixed inset-y-0 left-0 z-50 flex h-svh w-64 shrink-0 flex-col overflow-y-auto border-r border-sidebar-border bg-sidebar p-4 text-sidebar-foreground transition-transform duration-200 ease-out md:static md:z-auto md:h-full md:min-h-full md:w-52 md:self-stretch md:translate-x-0",
+          "docs-scroll fixed inset-y-0 left-0 z-50 flex h-svh w-64 shrink-0 flex-col overflow-y-auto border border-border bg-background p-4 text-sidebar-foreground transition-transform duration-200 ease-out md:static md:z-auto md:h-full md:min-h-full md:w-52 md:self-stretch md:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         )}
       >
@@ -115,7 +115,7 @@ export function DocsSidebar({ navGroups, brand }: DocsSidebarProps) {
       <div className={cn("fixed top-4 left-4 z-50 md:hidden", open && "hidden")}>
         <button
           type="button"
-          className="inline-flex size-8 items-center justify-center rounded-none border border-sidebar-border bg-sidebar text-sidebar-foreground/70 shadow-sm transition-colors hover:text-sidebar-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
+          className="inline-flex size-8 items-center justify-center rounded-none border border-border bg-background text-sidebar-foreground/70 shadow-sm transition-colors hover:text-sidebar-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
           aria-label="Open menu"

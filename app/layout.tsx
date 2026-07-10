@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         GeistPixelSquare.variable
       )}
     >
-      <body className="flex h-full min-h-svh flex-col bg-muted font-sans text-foreground">
+      <body className="flex h-full min-h-svh flex-col bg-background font-sans text-foreground">
         <RootProvider
           theme={{
             enabled: true,
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           }}
         >
           <ThemeHotkey />
-          <div className="m-1 flex min-h-[calc(100svh-0.5rem)] flex-1 flex-col overflow-hidden border border-border bg-background shadow-sm">
+          <div className="m-1 flex min-h-[calc(100svh-0.5rem)] flex-1 flex-col overflow-hidden bg-background">
             {children}
           </div>
         </RootProvider>
