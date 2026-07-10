@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/header/graph.svg?title=asciicn&subtitle=A+library+of+ASCII+components&logo=shadcnui&theme=zinc&font=geist-mono&mode=dark" />
-    <img alt="asciicn — A library of ASCII components" src="https://shieldcn.dev/header/graph.svg?title=asciicn&subtitle=A+library+of+ASCII+components&logo=shadcnui&theme=zinc&font=geist-mono&mode=light" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/radiumcoders/asciicn/master/public/readme-header-dark.svg" />
+    <img alt="asciicn — A library of ASCII components" src="https://raw.githubusercontent.com/radiumcoders/asciicn/master/public/readme-header-light.svg" />
   </picture>
 </p>
 
