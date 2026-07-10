@@ -181,10 +181,14 @@
   scroll-margin-top: 5rem;
 }
 
-.docs-content .docs-code-window figure.shiki {
+.docs-content figure.docs-code-block {
   box-shadow: none;
 }
 
-.docs-content .docs-code-window figure.shiki [class*="backdrop-blur"] {
+.docs-content figure.docs-code-block [class*="backdrop-blur"] {
   backdrop-filter: none;
+}
+
+.docs-content figure.docs-code-block [role="region"] {
+  padding-block: calc(var(--spacing) * 0.5);
 }

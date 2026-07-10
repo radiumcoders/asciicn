@@ -3,12 +3,19 @@ title: Components
 description: Registry components shipped from components/asciicn.
 ---
 
+import { AsciiBadge } from "@/components/asciicn/ascii-badge"
+
 Components in this registry are authored under `components/asciicn` and
 published as built JSON under `/r`.
 
 ## Ascii Badge
 
 Monochrome badge used as a sample registry item.
+
+<ComponentPreview title="Ascii Badge">
+  <AsciiBadge>default</AsciiBadge>
+  <AsciiBadge variant="outline">outline</AsciiBadge>
+</ComponentPreview>
 
 ```bash
 pnpm dlx shadcn@latest add @asciicn/ascii-badge

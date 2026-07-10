@@ -1,0 +1,42 @@
+---
+pid: 12040
+cwd: "C:\mainer\asciicn"
+command: "cd C:\\mainer\\asciicn; pnpm build"
+started_at: 2026-07-10T05:01:33.852Z
+running_for_ms: 1720010  
+---
+$ pnpm registry && next build
+$ node scripts/build-registry.mjs
+✓ Wrote registry.json (1 item)
+✓ Built registry JSON files → public/r
+- Building ascii-badge...
+√ Building registry.
+▲ Next.js 16.2.6 (Turbopack)
+
+[MDX] generated files in 17.650300000000016ms
+  Creating an optimized production build ...
+✓ Compiled successfully in 7.1s
+  Running TypeScript ...
+  Finished TypeScript in 5.1s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/8) ...
+  Generating static pages using 7 workers (2/8) 
+  Generating static pages using 7 workers (4/8) 
+  Generating static pages using 7 workers (6/8) 
+✓ Generating static pages using 7 workers (8/8) in 755ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/search
+└ ● /docs/[[...slug]]
+  ├ /docs
+  ├ /docs/components
+  └ /docs/registry
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
