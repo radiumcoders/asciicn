@@ -36,7 +36,7 @@ export function ControlRow({
           <input
             value={value as string}
             onChange={(event) => onChange(event.target.value)}
-            className="h-8 rounded-lg bg-wash px-2.5 font-mono text-[12px] outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="h-8 border border-line bg-sheet px-2.5 font-mono text-[12px] outline-none focus-visible:border-ink/50"
           />
         </label>
       )
@@ -89,10 +89,10 @@ function Slider({
         event.preventDefault()
         onChange(Number(Math.min(max, Math.max(min, value + delta * (event.shiftKey ? 10 : 1))).toFixed(decimals)))
       }}
-      className="group relative flex h-8 cursor-ew-resize touch-none items-center justify-between overflow-hidden rounded-lg bg-wash px-2.5 outline-none select-none focus-visible:ring-2 focus-visible:ring-ring"
+      className="group relative flex h-8 cursor-ew-resize touch-none items-center justify-between overflow-hidden border border-line bg-sheet px-2.5 outline-none select-none focus-visible:border-ink/50"
     >
       <motion.span
-        className="absolute inset-y-0 left-0 bg-ink/[0.07] shadow-[inset_-2px_0_0_color-mix(in_oklab,var(--ink)_35%,transparent)] dark:bg-ink/[0.09]"
+        className="absolute inset-y-0 left-0 bg-brand/15 shadow-[inset_-2px_0_0_var(--brand)]"
         animate={{ width: `${progress * 100}%` }}
         transition={dragging ? { duration: 0 } : spring}
       />
@@ -109,11 +109,11 @@ function Toggle({ label, value, onChange }: { label: string; value: boolean; onC
       role="switch"
       aria-checked={value}
       onClick={() => onChange(!value)}
-      className="group flex h-8 items-center justify-between rounded-lg bg-wash px-2.5 outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      className="group flex h-8 items-center justify-between border border-line bg-sheet px-2.5 outline-none focus-visible:border-ink/50"
     >
       <span className="font-mono text-[11px] text-dim transition-colors group-hover:text-ink">{label}</span>
-      <span className={cn("flex h-4 w-7 items-center rounded-full p-0.5 transition-colors", value ? "justify-end bg-ink" : "justify-start bg-ink/15")}>
-        <motion.span layout transition={spring} className="size-3 rounded-full bg-sheet shadow-sm" />
+      <span className={cn("flex h-4 w-7 items-center p-0.5 transition-colors", value ? "justify-end bg-brand" : "justify-start bg-ink/15")}>
+        <motion.span layout transition={spring} className="size-3 bg-sheet" />
       </span>
     </button>
   )
@@ -135,19 +135,19 @@ function Choice({
   return (
     <div className="flex flex-col gap-1.5">
       <span className="px-0.5 font-mono text-[11px] text-dim">{label}</span>
-      <div className="flex flex-wrap gap-1 rounded-lg bg-wash p-1">
+      <div className="flex flex-wrap gap-1 border border-line bg-sheet p-1">
         {options.map((option) => (
           <button
             key={option}
             type="button"
             onClick={() => onChange(option)}
             className={cn(
-              "relative h-6 max-w-full rounded-md px-2 font-mono text-[11px] whitespace-pre transition-colors",
-              value === option ? "text-ink" : "text-dim hover:text-ink"
+              "relative h-6 max-w-full px-2 font-mono text-[11px] whitespace-pre transition-colors",
+              value === option ? "inv" : "text-dim hover:text-ink"
             )}
           >
             {value === option ? (
-              <motion.span layoutId={id} transition={spring} className="absolute inset-0 rounded-md bg-sheet shadow-sm dark:bg-plate" />
+              <motion.span layoutId={id} transition={spring} className="absolute inset-0 bg-cursor" />
             ) : null}
             <span className="relative block truncate">{option.trim() === "" ? "space" : option.length > 14 ? `${option.slice(0, 12)}…` : option}</span>
           </button>

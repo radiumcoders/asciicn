@@ -1,28 +1,89 @@
 ---
 title: Installation
-description: Add asciicn components to a project that already uses shadcn/ui.
+description: Add asciicn components to any project that uses shadcn/ui.
 ---
 
-## Set up shadcn
+<Steps>
 
-asciicn components install through the shadcn CLI. If your project doesn't use it yet, run `init` first:
+### Set up shadcn
+
+asciicn installs through the shadcn CLI. If your project doesn't use it yet, run `init` once. It writes `components.json` and the `cn` helper every component imports.
 
 ```bash
 npx shadcn@latest init
 ```
 
-## Add a component
+### Add a component
 
-Pick a component from the sidebar and run its install command. For example:
+Every component has its own registry URL. Pass it to `add`:
 
-<Install name="scramble-text" />
+<Install name="<component>" />
 
-The file lands in `components/ui`, ready to import:
+### Import it
 
-```tsx
-import { ScrambleText } from "@/components/ui/scramble-text"
+The file lands in `components/ui`, next to the rest of your shadcn components.
 
-export function Hero() {
-  return <ScrambleText text="hello, world" />
+<Files>
+  <Folder name="components">
+    <Folder name="ui">
+      <File name="button.tsx" />
+      <File name="<component>.tsx" note="added" />
+    </Folder>
+  </Folder>
+  <Folder name="lib">
+    <File name="utils.ts" />
+  </Folder>
+  <File name="components.json" />
+</Files>
+
+```tsx title="app/page.tsx"
+import { Component } from "@/components/ui/<component>" // [!code highlight]
+
+export default function Page() {
+  return <Component />
 }
 ```
+
+</Steps>
+
+## Use the namespace
+
+Register asciicn once and install by name instead of by URL. The CLI can write the entry for you:
+
+<SiteCode lang="bash" title="Terminal" code="npx shadcn@latest registry add @asciicn={{site}}/r/{name}.json" />
+
+Or add it to `components.json` yourself:
+
+<SiteCode
+  lang="json"
+  title="components.json"
+  highlight={[3, 4, 5]}
+  code={`{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "registries": {
+    "@asciicn": "{{site}}/r/{name}.json"
+  }
+}`}
+/>
+
+Now every component is one short command away:
+
+```bash
+npx shadcn@latest add @asciicn/<component>
+```
+
+<Callout title="Not using shadcn?">
+  Each component is one file. Open its **Code** tab, copy it into your project, and provide a `cn` helper that merges class names, such as `clsx` with `tailwind-merge`. Components are styled with Tailwind CSS v4.
+</Callout>
+
+## Updating
+
+Components aren't versioned packages, so there's nothing to upgrade in place. To pull the latest version of one, add it again and let the CLI overwrite the file:
+
+```bash
+npx shadcn@latest add @asciicn/<component> --overwrite
+```
+
+<Callout type="warn">
+  `--overwrite` replaces the file outright. Commit your local changes first so you can merge them back with a diff.
+</Callout>

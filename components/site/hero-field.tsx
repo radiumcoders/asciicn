@@ -1,7 +1,7 @@
 "use client"
 
-import { AsciiField } from "@/registry/ascii-field/ascii-field"
-import { ScrambleText } from "@/registry/scramble-text/scramble-text"
+import { AsciiField } from "@/components/site/ascii-field"
+import { ScrambleText } from "@/components/site/scramble-text"
 
 export function HeroField() {
   return (

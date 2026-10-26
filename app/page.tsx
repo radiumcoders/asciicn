@@ -11,12 +11,12 @@ import { site } from "@/lib/site"
 export default function Home() {
   return (
     <div className="p-2">
-      <section className="relative flex min-h-[calc(100svh-1rem)] flex-col overflow-hidden rounded-[1.75rem] bg-sheet">
+      <section className="relative flex min-h-[calc(100svh-1rem)] flex-col overflow-hidden bg-sheet">
         <HeroField />
         <nav className="relative z-10 flex items-center justify-between px-5 py-4 sm:px-8">
           <Logo />
           <div className="flex items-center gap-1">
-            <Link href="/docs" className="h-8 rounded-md px-3 text-[13.5px] leading-8 text-dim transition-colors hover:bg-wash hover:text-ink">
+            <Link href="/docs" className="h-8 px-3 text-[13.5px] leading-8 text-dim transition-colors hover:bg-wash hover:text-ink">
               Docs
             </Link>
             <GithubLink />
@@ -27,10 +27,10 @@ export default function Home() {
           <HeroTitle />
           <p className="mt-6 max-w-md text-[16px] leading-relaxed text-dim">{site.description}</p>
           <div className="mt-8 flex items-center gap-2">
-            <Link href="/docs" className="h-10 rounded-full bg-ink px-5 text-[14px] leading-10 font-medium text-sheet transition-opacity hover:opacity-85">
+            <Link href="/docs" className="h-10 bg-ink px-5 text-[14px] leading-10 font-medium text-sheet transition-opacity hover:opacity-85">
               Get started
             </Link>
-            <Link href="#components" className="h-10 rounded-full bg-plate px-5 text-[14px] leading-10 font-medium transition-colors hover:bg-wash">
+            <Link href="#components" className="h-10 bg-plate px-5 text-[14px] leading-10 font-medium transition-colors hover:bg-wash">
               Components
             </Link>
           </div>

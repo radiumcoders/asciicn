@@ -1,0 +1,69 @@
+---
+title: Using with AI
+description: Point your editor's assistant at asciicn so it installs and uses components correctly.
+---
+
+asciicn is plain files from a shadcn registry, which makes it easy for an assistant to work with. Give it the registry and the docs, and it can find a component, install it and pass the right props.
+
+## shadcn MCP server
+
+The shadcn MCP server lets assistants browse registries and install from them. Set it up for your client:
+
+<Tabs items={["Claude Code", "Cursor", "VS Code", "Codex"]} groupId="mcp-client">
+<Tab value="Claude Code">
+
+```bash
+npx shadcn@latest mcp init --client claude
+```
+
+</Tab>
+<Tab value="Cursor">
+
+```bash
+npx shadcn@latest mcp init --client cursor
+```
+
+</Tab>
+<Tab value="VS Code">
+
+```bash
+npx shadcn@latest mcp init --client vscode
+```
+
+</Tab>
+<Tab value="Codex">
+
+```bash
+npx shadcn@latest mcp init --client codex
+```
+
+</Tab>
+</Tabs>
+
+Then register the `@asciicn` namespace so the server knows where to look. See [Use the namespace](/docs/installation#use-the-namespace):
+
+<SiteCode lang="bash" title="Terminal" code="npx shadcn@latest registry add @asciicn={{site}}/r/{name}.json" />
+
+Now you can ask for components in plain language:
+
+<Callout title="Try asking">
+  "Show me the components in the @asciicn registry." "Add one to the landing page."
+</Callout>
+
+## Docs for models
+
+Every page is also available as Markdown, without the site around it. Paste the URL into a chat, or let an agent fetch it.
+
+| URL | Contents |
+| --- | --- |
+| `/llms.txt` | An index of every page, with a one-line description of each. |
+| `/llms-full.txt` | All of the docs in one file. |
+| `/docs/<page>.md` | One page as Markdown, such as `/docs/installation.md`. |
+
+<SiteCode lang="bash" title="Terminal" code="curl {{site}}/llms.txt" />
+
+## Registry JSON
+
+Each component's registry entry is public JSON with the full source inlined. It's the same file the CLI installs from:
+
+<SiteCode lang="bash" title="Terminal" code="curl {{site}}/r/<component>.json" />

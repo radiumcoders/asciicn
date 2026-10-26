@@ -3,15 +3,16 @@ title: Introduction
 description: Text-mode components for React, distributed as a shadcn registry.
 ---
 
-asciicn is a small set of components drawn with plain characters: glyphs that scramble into words, fields of text that move, loaders straight out of a terminal.
+asciicn is a set of components drawn with plain characters.
 
-They aren't a package. Each one is a single file that the [shadcn CLI](https://ui.shadcn.com/docs/cli) copies into your project, so you own the code and can change anything.
+It isn't a package. Each component is a single file the [shadcn CLI](https://ui.shadcn.com/docs/cli) copies into your project. You own the code, and you can change any of it.
 
 ## Principles
 
 - **One file per component.** No runtime dependency beyond `cn`.
-- **Monochrome by default.** Everything draws in `currentColor`, so components pick up your text color in light and dark mode.
+- **Monochrome by default.** Everything draws in `currentColor`, so it follows your text color in light and dark mode.
 - **Motion that respects people.** Every animation settles into its final state when reduced motion is on.
+- **Accessible underneath.** Decorative glyphs are hidden from screen readers; the real text, role and state are always there.
 
 ## Components
 

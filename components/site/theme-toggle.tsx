@@ -49,7 +49,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       title="Toggle theme (D)"
       onClick={toggle}
       className={cn(
-        "relative inline-flex size-8 items-center justify-center overflow-hidden rounded-md text-dim transition-colors hover:bg-wash hover:text-ink",
+        "relative inline-flex size-8 items-center justify-center overflow-hidden text-dim transition-colors hover:bg-wash hover:text-ink",
         className
       )}
     >

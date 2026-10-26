@@ -9,7 +9,7 @@ export function GithubLink({ className }: { className?: string }) {
       rel="noreferrer"
       aria-label="GitHub"
       className={cn(
-        "inline-flex size-8 items-center justify-center rounded-md text-dim transition-colors hover:bg-wash hover:text-ink",
+        "inline-flex size-8 items-center justify-center text-dim transition-colors hover:bg-wash hover:text-ink",
         className
       )}
     >

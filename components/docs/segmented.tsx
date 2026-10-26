@@ -29,14 +29,14 @@ export function Segmented<T extends string>({
           aria-selected={value === option}
           onClick={() => onChange(option)}
           className={cn(
-            "relative h-7 rounded-md px-2.5 text-[13px] font-medium transition-colors",
+            "relative h-7 px-2.5 text-[13px] font-medium transition-colors",
             value === option ? "text-ink" : "text-dim hover:text-ink"
           )}
         >
           {value === option ? (
             <motion.span
               layoutId={id}
-              className="absolute inset-0 rounded-md bg-sheet shadow-[0_1px_2px_rgb(0_0_0/0.06),0_0_0_1px_rgb(0_0_0/0.03)] dark:bg-wash"
+              className="absolute inset-0 bg-wash"
               transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
             />
           ) : null}

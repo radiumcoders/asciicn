@@ -5,8 +5,8 @@ import { ThemeProvider } from "next-themes"
 import type { ReactNode } from "react"
 
 import { SearchProvider, type SearchPage } from "@/components/site/search"
-import { site } from "@/lib/site"
-import { source } from "@/lib/source"
+import { registryUrl, site } from "@/lib/site"
+import { orderedPages } from "@/lib/pages"
 import { cn } from "@/lib/utils"
 
 import "./globals.css"
@@ -26,11 +26,17 @@ export const viewport: Viewport = {
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const pages: SearchPage[] = source.getPages().map((page) => ({
-    title: page.data.title,
-    description: page.data.description,
-    url: page.url,
-  }))
+  const pages: SearchPage[] = orderedPages().map(({ page, group }) => {
+    const component = page.url.startsWith("/docs/components/") ? page.url.split("/").pop() : undefined
+    return {
+      title: page.data.title,
+      description: page.data.description,
+      url: page.url,
+      group,
+      headings: page.data.structuredData.headings.map((heading) => ({ title: heading.content, url: `#${heading.id}` })),
+      install: component ? registryUrl(component) : undefined,
+    }
+  })
 
   return (
     <html lang="en" suppressHydrationWarning className={cn(GeistSans.variable, GeistMono.variable)}>

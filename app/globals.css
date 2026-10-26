@@ -9,31 +9,37 @@
  *   sheet    the panel the page content sits on
  *   plate    surfaces on the sheet: code, tables, install block
  *   stage    the ground a live component runs on
+ *
+ * ground, sheet, plate and stage are one tone: boxes are drawn with lines.
  *   ink      text and primary actions
  *   dim      secondary text
  *   wash     hover and pressed fills
  */
 :root {
   color-scheme: light;
-  --ground: #efefee;
-  --sheet: #ffffff;
-  --plate: #f5f5f4;
-  --stage: #fafaf9;
+  --ground: #f8f8f6;
+  --sheet: #f8f8f6;
+  --plate: #f8f8f6;
+  --stage: #f8f8f6;
   --ink: #131312;
   --dim: #6b6a67;
-  --wash: #e7e7e5;
-  --radius: 0.625rem;
+  --wash: #ebebe7;
+  --brand: oklch(0.6 0.13 50);
+  --cursor: var(--brand);
+  --radius: 0px;
 }
 
 .dark {
   color-scheme: dark;
-  --ground: #0d0d0c;
-  --sheet: #121211;
-  --plate: #1a1a19;
-  --stage: #161615;
+  --ground: #0e0e0d;
+  --sheet: #0e0e0d;
+  --plate: #0e0e0d;
+  --stage: #0e0e0d;
   --ink: #ecebe7;
   --dim: #8f8e89;
-  --wash: #232321;
+  --wash: #1f1f1d;
+  --brand: oklch(0.74 0.11 58);
+  --cursor: var(--brand);
 }
 
 /* shadcn roles, so registry components read the same tokens. */
@@ -53,7 +59,9 @@
   --muted-foreground: var(--dim);
   --accent: var(--wash);
   --accent-foreground: var(--ink);
-  --border: color-mix(in oklab, var(--ink) 9%, transparent);
+  --border: color-mix(in oklab, var(--ink) 14%, transparent);
+  --line: color-mix(in oklab, var(--ink) 14%, transparent);
+  --line-soft: color-mix(in oklab, var(--ink) 8%, transparent);
   --input: color-mix(in oklab, var(--ink) 12%, transparent);
   --ring: color-mix(in oklab, var(--ink) 40%, transparent);
 }
@@ -88,11 +96,20 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
+  /* Sharp, like a character grid. */
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
+
+  --color-brand: var(--brand);
+  --color-cursor: var(--cursor);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
 }
 
 @layer base {
@@ -104,8 +121,8 @@
     scroll-padding-top: 5rem;
   }
   ::selection {
-    background: var(--ink);
-    color: var(--sheet);
+    background: color-mix(in oklab, var(--brand) 35%, transparent);
+    color: var(--ink);
   }
 }
 
@@ -131,16 +148,16 @@
   @apply font-medium text-ink;
 }
 .prose > h2 {
-  @apply mt-14 mb-4 scroll-mt-24 text-xl font-semibold tracking-tight text-ink;
+  @apply mt-14 mb-4 scroll-mt-24 font-mono text-[19px] font-semibold tracking-tight text-ink;
 }
 .prose > h3 {
-  @apply mt-10 mb-3 scroll-mt-24 text-base font-semibold tracking-tight text-ink;
+  @apply mt-10 mb-3 scroll-mt-24 font-mono text-[15px] font-semibold tracking-tight text-ink;
 }
 .prose :where(h2, h3) a {
   @apply no-underline;
 }
 .prose :where(p, li) a {
-  @apply font-medium text-ink underline decoration-dim/40 underline-offset-4 transition-colors hover:decoration-ink;
+  @apply font-medium text-ink underline decoration-brand/50 underline-offset-4 transition-colors hover:decoration-brand;
 }
 .prose > ul {
   @apply list-disc pl-5 marker:text-dim/60;
@@ -152,7 +169,7 @@
   @apply my-1.5 pl-1;
 }
 .prose :not(pre) > code:not(:where(.not-prose *)) {
-  @apply rounded-md bg-plate px-1.5 py-0.5 font-mono text-[0.85em] text-ink;
+  @apply border border-line-soft bg-plate px-1 py-px font-mono text-[0.85em] text-ink;
 }
 
 /* Source view: line numbers from a CSS counter. */
@@ -190,3 +207,235 @@
     clip-path: circle(var(--vt-r) at var(--vt-x) var(--vt-y));
   }
 }
+
+/* ───────────────────────────────────────────────────────────────────────────
+ * Docs primitives: code blocks, Steps, Callout, Tabs.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+/* Code blocks. Lines are full-width rows so highlights read as bands. */
+.code-block {
+  max-height: 32rem;
+  overflow: auto;
+  padding-block: 1rem;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--ink) 15%, transparent) transparent;
+}
+.code-block > code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+}
+.code-block .line {
+  display: inline-block;
+  width: 100%;
+  padding-inline: 1rem 3rem;
+}
+.code-frame .code-block {
+  padding-block: 0.875rem;
+}
+
+/* `!important` beats the `.shiki span` reset above. */
+.code-block .line.highlighted {
+  background: color-mix(in oklab, var(--brand) 10%, transparent) !important;
+  box-shadow: inset 2px 0 0 var(--brand);
+}
+.code-block .highlighted-word {
+  background: color-mix(in oklab, var(--ink) 9%, transparent) !important;
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--ink) 9%, transparent);
+}
+
+/* Diff: a quiet +/- gutter; removed lines fade, added lines get the band. */
+.code-block.has-diff .line::before {
+  content: " ";
+  display: inline-block;
+  width: 1.25rem;
+  margin-left: -0.25rem;
+  color: var(--dim);
+  user-select: none;
+}
+.code-block .line.diff.add {
+  background: color-mix(in oklab, var(--brand) 10%, transparent) !important;
+  box-shadow: inset 2px 0 0 var(--brand);
+}
+.code-block .line.diff.add::before {
+  content: "+";
+  color: var(--brand);
+}
+.code-block .line.diff.remove {
+  opacity: 0.45;
+}
+.code-block .line.diff.remove::before {
+  content: "-";
+}
+
+/* Focus: everything else blurs back until the block is hovered. */
+.code-block.has-focused .line:not(.focused) {
+  opacity: 0.4;
+  filter: blur(1.5px);
+  transition:
+    opacity 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.code-block.has-focused:hover .line:not(.focused) {
+  opacity: 1;
+  filter: none;
+}
+
+/* Steps: `###` headings become numbered stops on a rail. */
+.steps {
+  counter-reset: step;
+  position: relative;
+  margin-block: 2rem;
+  padding-left: 2.75rem;
+}
+.steps::before {
+  content: "";
+  position: absolute;
+  top: 1.75rem;
+  bottom: 0.5rem;
+  left: 0.8125rem;
+  width: 1px;
+  background: repeating-linear-gradient(to bottom, var(--line) 0 3px, transparent 3px 6px);
+}
+.steps > h3 {
+  counter-increment: step;
+  position: relative;
+  margin-top: 2.25rem;
+  margin-bottom: 0.5rem;
+  scroll-margin-top: 6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.steps > h3:first-child {
+  margin-top: 0;
+}
+.steps > h3::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  top: 50%;
+  left: -2.75rem;
+  display: flex;
+  width: 1.625rem;
+  height: 1.625rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  background: var(--sheet);
+  box-shadow: 0 0 0 4px var(--sheet);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink);
+  transform: translateY(-50%);
+}
+
+/* Prose rhythm inside primitives the `.prose >` rules can't reach. */
+.prose :where(.steps, .tabs-panel) > :where(p, ul, ol) {
+  margin-block: 0.75rem;
+  color: var(--dim);
+}
+.prose :where(.steps, .tabs-panel) > ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose .steps > p:first-of-type {
+  margin-top: 0;
+}
+.callout-body > :where(p, ul) + :where(p, ul) {
+  margin-top: 0.5rem;
+}
+.callout-body :where(p, li) a {
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--dim) 40%, transparent);
+  text-underline-offset: 4px;
+}
+.callout-body strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+.prose .callout-body code:not(:where(.not-prose *)) {
+  background: var(--wash);
+}
+
+/* Tables: ruled, like a printout. */
+.prose > table {
+  width: 100%;
+  margin-block: 1.5rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.5rem;
+}
+.prose > table :where(th, td) {
+  padding: 0.625rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+.prose > table th {
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--dim);
+}
+.prose > table td {
+  color: var(--dim);
+  border-top: 1px dashed var(--line);
+}
+.prose > table td:first-child {
+  white-space: nowrap;
+  color: var(--ink);
+}
+.prose > table code:not(:where(.not-prose *)) {
+  background: var(--wash);
+}
+
+/* Changelog: a mono date line under each version. */
+.prose > .changelog-date {
+  margin-top: -0.5rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--dim);
+}
+
+/* A dashed rule, the way a terminal draws one. */
+.rule-dashed {
+  background: repeating-linear-gradient(to right, var(--line) 0 4px, transparent 4px 8px) bottom / 100% 1px no-repeat;
+}
+
+/* Thin, square scrollbars. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--ink) 18%, transparent) transparent;
+}
+
+/* Inverse video: a selected row reads like a terminal cursor. Every token flips,
+ * so anything inside keeps working; the cursor block itself uses --cursor. */
+@utility inv {
+  --ink: #fbfbf9;
+  --sheet: #0e0e0d;
+  --dim: rgb(251 251 249 / 0.72);
+  --plate: rgb(255 255 255 / 0.12);
+  --wash: rgb(255 255 255 / 0.16);
+  --stage: rgb(255 255 255 / 0.08);
+  --line: rgb(255 255 255 / 0.3);
+  --line-soft: rgb(255 255 255 / 0.16);
+  color: var(--ink);
+
+  :where(.dark) & {
+    --ink: #0b0b0a;
+    --sheet: #ecebe7;
+    --dim: rgb(11 11 10 / 0.62);
+    --plate: rgb(0 0 0 / 0.08);
+    --wash: rgb(0 0 0 / 0.12);
+    --stage: rgb(0 0 0 / 0.05);
+    --line: rgb(0 0 0 / 0.25);
+    --line-soft: rgb(0 0 0 / 0.14);
+  }
+}
+
