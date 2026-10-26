@@ -1,0 +1,36 @@
+---
+title: ASCII Donut
+description: The classic spinning torus, rendered in characters. Drag to spin it.
+---
+
+<ComponentPreview name="ascii-donut" />
+
+## Installation
+
+<Install name="ascii-donut" />
+
+## Usage
+
+The donut fills its parent and centers itself, so give the parent a size. It draws in `currentColor`.
+
+```tsx
+import { AsciiDonut } from "@/components/ui/ascii-donut"
+
+export function Loader() {
+  return (
+    <div className="relative size-64 text-foreground">
+      <AsciiDonut className="absolute inset-0" />
+    </div>
+  )
+}
+```
+
+Drag it to spin it. When you let go it coasts, then eases back to its own rotation. It stops drawing while it's scrolled out of view. With reduced motion on, it holds one still frame, and dragging still turns it.
+
+Based on [donut.c](https://www.a1k0n.net/2011/07/20/donut-math.html) by Andy Sloane.
+
+## Props
+
+<PropsTable name="ascii-donut" type="AsciiDonutProps" />
+
+It also accepts every `<div>` attribute, passed to the root element.

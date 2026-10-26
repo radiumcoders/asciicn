@@ -12,5 +12,7 @@ export async function ComponentPreview({ name }: { name: string }) {
   const file = item.files[0].path.replace(/^registry\//, "")
   const code = await readFile(join(process.cwd(), "registry", file), "utf8")
 
-  return <PreviewTabs name={name} code={code} html={await highlight(code)} />
+  const component = name.replace(/(^|-)(\w)/g, (_, __, c: string) => c.toUpperCase())
+
+  return <PreviewTabs name={name} component={component} code={code} html={await highlight(code)} />
 }

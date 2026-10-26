@@ -1,0 +1,30 @@
+---
+title: ASCII Progress
+description: A progress bar that fills in eighths of a character.
+---
+
+<ComponentPreview name="ascii-progress" />
+
+## Installation
+
+<Install name="ascii-progress" />
+
+## Usage
+
+```tsx
+import { AsciiProgress } from "@/components/ui/ascii-progress"
+
+export function Upload({ percent }: { percent: number }) {
+  return <AsciiProgress value={percent} width={32} />
+}
+```
+
+The fill moves in eighths of a character, the same steps as `▏▎▍▌▋▊▉█`, so a 24-character bar has 192 visible steps. New values glide in on a spring, and jump straight there with reduced motion on.
+
+The fill is drawn as one solid block rather than block glyphs. Most monospace fonts don't include those glyphs, and the fallback font leaves seams between cells. The bar is exactly `width` characters wide in any font.
+
+## Props
+
+<PropsTable name="ascii-progress" type="AsciiProgressProps" />
+
+It also accepts every `<div>` attribute, passed to the root element.

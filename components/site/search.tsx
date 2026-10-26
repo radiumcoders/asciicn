@@ -1,6 +1,7 @@
 "use client"
 
 import { Dialog } from "@base-ui/react/dialog"
+import { motion } from "motion/react"
 import { useRouter } from "next/navigation"
 import * as React from "react"
 
@@ -16,6 +17,12 @@ export function SearchProvider({ pages, children }: { pages: SearchPage[]; child
   const [open, setOpen] = React.useState(false)
   const [query, setQuery] = React.useState("")
   const [active, setActive] = React.useState(0)
+  const listRef = React.useRef<HTMLUListElement>(null)
+
+  // Keep the keyboard selection in view.
+  React.useEffect(() => {
+    listRef.current?.querySelector(`[data-index="${active}"]`)?.scrollIntoView({ block: "nearest" })
+  }, [active])
 
   React.useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -30,8 +37,17 @@ export function SearchProvider({ pages, children }: { pages: SearchPage[]; child
 
   const results = React.useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (!q) return pages
-    return pages.filter((page) => `${page.title} ${page.description ?? ""}`.toLowerCase().includes(q))
+    // Title hits rank above description hits; groups stay together.
+    const score = (page: SearchPage) =>
+      !q ? 0 : page.title.toLowerCase().includes(q) ? 0 : (page.description ?? "").toLowerCase().includes(q) ? 1 : -1
+    return pages
+      .filter((page) => score(page) >= 0)
+      .sort(
+        (a, b) =>
+          Number(groupOf(a.url) === "Components") - Number(groupOf(b.url) === "Components") ||
+          score(a) - score(b) ||
+          a.title.localeCompare(b.title)
+      )
   }, [pages, query])
 
   const go = (page: SearchPage | undefined) => {
@@ -78,28 +94,67 @@ export function SearchProvider({ pages, children }: { pages: SearchPage[]; child
               }}
               className="h-13 w-full bg-transparent px-5 text-[15px] outline-none placeholder:text-dim"
             />
-            <ul className="max-h-80 overflow-y-auto p-1.5 shadow-[inset_0_1px_0_var(--border)]">
+            <ul ref={listRef} className="relative max-h-80 overflow-y-auto p-1.5 shadow-[inset_0_1px_0_var(--border)]">
               {results.length === 0 ? (
-                <li className="px-3 py-6 text-center font-mono text-[13px] text-dim">no results</li>
+                <li className="px-3 py-8 text-center font-mono text-[13px] text-dim">
+                  no match for <span className="text-ink">&quot;{query}&quot;</span>
+                </li>
               ) : (
-                results.map((page, i) => (
-                  <li key={page.url}>
-                    <button
-                      type="button"
-                      onMouseMove={() => setActive(i)}
-                      onClick={() => go(page)}
-                      className={cn(
-                        "flex w-full flex-col items-start gap-0.5 rounded-lg px-3 py-2 text-left",
-                        i === active && "bg-wash"
-                      )}
-                    >
-                      <span className="text-[14px] font-medium">{page.title}</span>
-                      {page.description ? <span className="line-clamp-1 text-[13px] text-dim">{page.description}</span> : null}
-                    </button>
-                  </li>
-                ))
+                results.map((page, i) => {
+                  const group = groupOf(page.url)
+                  return (
+                    <li key={page.url}>
+                      {i === 0 || groupOf(results[i - 1].url) !== group ? (
+                        <p className="px-3 pt-2.5 pb-1 font-mono text-[11px] tracking-wide text-dim/70 uppercase">{group}</p>
+                      ) : null}
+                      <button
+                        type="button"
+                        data-index={i}
+                        onMouseMove={() => setActive(i)}
+                        onClick={() => go(page)}
+                        className="relative flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left"
+                      >
+                        {i === active ? (
+                          <motion.span
+                            layoutId="search-active"
+                            className="absolute inset-0 rounded-lg bg-wash"
+                            transition={{ type: "spring", duration: 0.3, bounce: 0.1 }}
+                          />
+                        ) : null}
+                        <span className="relative flex min-w-0 flex-1 flex-col gap-0.5">
+                          <span className="text-[14px] font-medium">
+                            <Highlight text={page.title} query={query} />
+                          </span>
+                          {page.description ? (
+                            <span className="line-clamp-1 text-[13px] text-dim">
+                              <Highlight text={page.description} query={query} />
+                            </span>
+                          ) : null}
+                        </span>
+                        <span
+                          aria-hidden
+                          className={cn("relative font-mono text-[12px] text-dim transition-opacity", i === active ? "opacity-100" : "opacity-0")}
+                        >
+                          ↵
+                        </span>
+                      </button>
+                    </li>
+                  )
+                })
               )}
             </ul>
+            <div className="flex items-center gap-4 px-4 py-2.5 font-mono text-[11px] text-dim shadow-[inset_0_1px_0_var(--border)]">
+              <span>
+                <Kbd>↑</Kbd>
+                <Kbd>↓</Kbd> move
+              </span>
+              <span>
+                <Kbd>↵</Kbd> open
+              </span>
+              <span className="ml-auto">
+                <Kbd>esc</Kbd> close
+              </span>
+            </div>
           </Dialog.Popup>
         </Dialog.Portal>
       </Dialog.Root>
@@ -123,4 +178,23 @@ export function SearchTrigger({ className }: { className?: string }) {
       <kbd className="font-mono text-[11px] text-dim/80">⌘K</kbd>
     </button>
   )
+}
+
+const groupOf = (url: string) => (url.startsWith("/docs/components/") ? "Components" : "Get started")
+
+function Highlight({ text, query }: { text: string; query: string }) {
+  const q = query.trim()
+  const at = q ? text.toLowerCase().indexOf(q.toLowerCase()) : -1
+  if (at < 0) return <>{text}</>
+  return (
+    <>
+      {text.slice(0, at)}
+      <mark className="rounded-[3px] bg-ink/10 text-ink">{text.slice(at, at + q.length)}</mark>
+      {text.slice(at + q.length)}
+    </>
+  )
+}
+
+function Kbd({ children }: { children: React.ReactNode }) {
+  return <kbd className="mr-1 inline-flex h-[18px] min-w-[18px] items-center justify-center rounded bg-wash px-1 font-mono text-[10px] text-ink">{children}</kbd>
 }

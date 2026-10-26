@@ -1,0 +1,28 @@
+---
+title: Bracket Button
+description: A button framed in brackets that spring open on hover.
+---
+
+<ComponentPreview name="bracket-button" />
+
+## Installation
+
+<Install name="bracket-button" />
+
+## Usage
+
+```tsx
+import { BracketButton } from "@/components/ui/bracket-button"
+
+export function Example() {
+  return <BracketButton onClick={() => deploy()}>deploy</BracketButton>
+}
+```
+
+A plain-text label scrambles briefly on hover and keyboard focus; other children render as they are. While `loading` is on, the label hides behind a spinner but still sets the width, so the button never jumps.
+
+## Props
+
+<PropsTable name="bracket-button" type="BracketButtonProps" />
+
+It also accepts every `<button>` attribute, passed to the root element.

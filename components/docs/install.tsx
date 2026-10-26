@@ -4,6 +4,7 @@ import * as React from "react"
 
 import { CopyButton } from "@/components/docs/copy-button"
 import { Segmented } from "@/components/docs/segmented"
+import { ScrambleText } from "@/registry/scramble-text/scramble-text"
 
 const MANAGERS = ["pnpm", "npm", "yarn", "bun"] as const
 type Manager = (typeof MANAGERS)[number]
@@ -51,8 +52,10 @@ export function Install({ url }: { url: string }) {
         <CopyButton value={command} />
       </div>
       <pre className="overflow-x-auto px-3 pt-2.5 pb-3 font-mono text-[13px] leading-6">
-        <span className="text-dim">{RUNNER[manager]} </span>
-        <span className="text-ink">shadcn@latest add {url}</span>
+        <span className="text-dim/60 select-none">$ </span>
+        {/* Only the runner changes between managers, so only it scrambles. */}
+        <ScrambleText key={manager} text={RUNNER[manager]} duration={380} className="text-dim" />
+        <span className="text-ink"> shadcn@latest add {url}</span>
       </pre>
     </div>
   )
