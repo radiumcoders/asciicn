@@ -1,0 +1,40 @@
+---
+title: ASCII Shader
+description: Any seed, drawn as an ASCII field in its own colours.
+---
+
+<ComponentPreview name="ascii-shader" />
+
+Type any seed in the playground. The seed picks the shape, the palette and the motion, and a seed always gives the same result.
+
+## Installation
+
+<Install name="ascii-shader" />
+
+## Usage
+
+```tsx
+import { AsciiShader } from "@/components/ui/ascii-shader"
+
+export function Hero() {
+  return (
+    <section className="relative h-[32rem]">
+      <AsciiShader seed="your-seed" field="nebula" className="absolute inset-0" />
+    </section>
+  )
+}
+```
+
+A field pass renders the shader on the GPU at half resolution, then an ASCII pass draws one glyph per cell in the field's colour. The brighter the cell, the denser the glyph.
+
+- **Light and dark.** Cells with nothing in them are exactly the page colour. It reads that colour from the page, or you can pass `background`.
+- **Calm by default.** It pauses when it's off-screen or the tab is hidden, and holds still when reduced motion is on.
+- **Monospace.** Glyphs use the `font-mono` family of your page.
+
+The field and colour designs follow [OpenShaders](https://openshaders.com).
+
+## Props
+
+<PropsTable name="ascii-shader" type="AsciiShaderOptions" />
+
+It also accepts every `<div>` attribute, passed to the root element.

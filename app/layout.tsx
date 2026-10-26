@@ -5,6 +5,7 @@ import { ThemeProvider } from "next-themes"
 import type { ReactNode } from "react"
 
 import { SearchProvider, type SearchPage } from "@/components/site/search"
+import { isItemPage } from "@/lib/registry"
 import { registryUrl, site } from "@/lib/site"
 import { orderedPages } from "@/lib/pages"
 import { cn } from "@/lib/utils"
@@ -27,7 +28,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const pages: SearchPage[] = orderedPages().map(({ page, group }) => {
-    const component = page.url.startsWith("/docs/components/") ? page.url.split("/").pop() : undefined
+    const component = isItemPage(page.url) ? page.url.split("/").pop() : undefined
     return {
       title: page.data.title,
       description: page.data.description,

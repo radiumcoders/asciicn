@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useDemo } from "@/components/docs/use-demo"
 import { cn } from "@/lib/utils"
 
-type Item = { name: string; title: string; description: string }
+type Item = { name: string; title: string; description: string; url: string }
 
 export function ComponentGrid({ items, compact }: { items: Item[]; compact?: boolean }) {
   if (!items.length) {
@@ -22,7 +22,7 @@ export function ComponentGrid({ items, compact }: { items: Item[]; compact?: boo
         return (
           <Link
             key={item.name}
-            href={`/docs/components/${item.name}`}
+            href={item.url}
             className="group flex flex-col border border-line bg-sheet transition-colors hover:bg-plate"
           >
             <div className={cn("relative flex items-center justify-center overflow-hidden border-b border-line bg-stage", compact ? "h-52" : "h-64")}>

@@ -1,0 +1,35 @@
+---
+title: Mirage
+description: Blue ribbons of light that bend across the page.
+---
+
+<ComponentPreview name="mirage" />
+
+## Installation
+
+<Install name="mirage" />
+
+## Usage
+
+The background fills its parent. Put it behind your content and give the parent a size.
+
+```tsx
+import { Mirage } from "@/components/ui/mirage"
+
+export function Hero() {
+  return (
+    <section className="relative h-[32rem]">
+      <Mirage className="absolute inset-0" />
+      <div className="relative">{/* your content */}</div>
+    </section>
+  )
+}
+```
+
+It's [ASCII Shader](/docs/backgrounds/ascii-shader) with the seed `"mirage"` and the `silk` field. The colours come from the seed, and empty cells match the page behind it, in light and dark mode.
+
+## Props
+
+<PropsTable name="mirage" type="MirageOptions" />
+
+It also accepts every `<div>` attribute, passed to the root element.

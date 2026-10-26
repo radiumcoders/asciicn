@@ -5,7 +5,7 @@ import { GithubLink } from "@/components/site/github-link"
 import { HeroField, HeroTitle } from "@/components/site/hero-field"
 import { Logo } from "@/components/site/logo"
 import { ThemeToggle } from "@/components/site/theme-toggle"
-import { items } from "@/lib/registry"
+import { docsUrl, items } from "@/lib/registry"
 import { site } from "@/lib/site"
 
 export default function Home() {
@@ -42,7 +42,7 @@ export default function Home() {
           <h2 className="text-xl font-semibold tracking-tight">Components</h2>
           <span className="font-mono text-[12px] text-dim">{items.length} items</span>
         </div>
-        <ComponentGrid items={items.map(({ name, title, description }) => ({ name, title, description }))} />
+        <ComponentGrid items={items.map((item) => ({ name: item.name, title: item.title, description: item.description, url: docsUrl(item) }))} />
       </section>
 
       <footer className="mx-auto flex max-w-6xl items-center justify-between px-4 py-8 font-mono text-[12px] text-dim sm:px-7">

@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation"
 import * as React from "react"
 
 import { useDemo } from "@/components/docs/use-demo"
+import { isItemPage } from "@/lib/registry"
 import { cn } from "@/lib/utils"
 
 const PEEK_W = 304
@@ -33,7 +34,7 @@ export function SidebarNav({ tree, onNavigate }: { tree: PageTree.Root; onNaviga
     // Coming in from outside, the block appears where you are instead of sliding from where you left.
     setHover((current) => ({ top, height: element.offsetHeight, jump: !current?.on, on: true }))
     clearTimeout(timer.current)
-    if (!canPeek || !node.url.startsWith("/docs/components/")) {
+    if (!canPeek || !isItemPage(node.url)) {
       timer.current = setTimeout(() => setPeek(null), peek ? 80 : 0)
       return
     }

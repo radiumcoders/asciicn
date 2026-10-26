@@ -3,7 +3,7 @@ import { join } from "node:path"
 
 import { createGenerator } from "fumadocs-typescript"
 
-import { getItem, items } from "@/lib/registry"
+import { docsUrl, getItem, items } from "@/lib/registry"
 import { registryUrl, site } from "@/lib/site"
 import { orderedPages } from "@/lib/pages"
 import type { source } from "@/lib/source"
@@ -74,7 +74,7 @@ async function selfClosing(name: string, attrs: Record<string, string>) {
       return propsTable(attrs.name, attrs.type)
     case "ComponentIndex":
       return items
-        .map((item) => `- [${item.title}](${site.url}${markdownUrl(`/docs/components/${item.name}`)}): ${item.description}`)
+        .map((item) => `- [${item.title}](${site.url}${markdownUrl(docsUrl(item))}): ${item.description}`)
         .join("\n")
     case "RegistryConfig":
       return fence("json", JSON.stringify({ registries: { "@asciicn": `${site.url}/r/{name}.json` } }, null, 2))
@@ -108,8 +108,14 @@ async function componentSource(name: string) {
   const item = getItem(name)
   const files = await Promise.all(
     item.files.map(async (file) => {
-      const code = await readFile(join(process.cwd(), "registry", file.path.replace(/^registry\//, "")), "utf8")
-      return fence(`tsx title="${file.path.replace(/^registry\/[^/]+\//, "components/ui/")}"`, code.trimEnd())
+      // Scoped reads (registry/ or lib/) so the build doesn't trace the whole project.
+      const isLib = file.type === "registry:lib"
+      const base = file.path.split("/").pop()!
+      const code = isLib
+        ? await readFile(join(process.cwd(), "lib", base), "utf8")
+        : await readFile(join(process.cwd(), "registry", file.path.replace(/^registry\//, "")), "utf8")
+      const target = isLib ? `lib/${base}` : `components/ui/${base}`
+      return fence(`${base.endsWith(".js") ? "js" : "tsx"} title="${target}"`, code.trimEnd())
     })
   )
   return files.join("\n\n")

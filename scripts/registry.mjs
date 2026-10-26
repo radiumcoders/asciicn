@@ -5,16 +5,19 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs"
 const registry = JSON.parse(readFileSync("registry.json", "utf8"))
 const problems = []
 
+// An item's first category is its docs section: content/docs/<section>/<name>.mdx.
+export const sectionOf = (item) => item.categories?.[0] ?? "components"
+
 for (const item of registry.items) {
+  const page = `content/docs/${sectionOf(item)}/${item.name}.mdx`
   const expected = [
     ...item.files.map((file) => file.path),
     `registry/${item.name}/demo.tsx`,
-    `content/docs/components/${item.name}.mdx`,
+    page,
   ]
   for (const path of expected) {
     if (!existsSync(path)) problems.push(`${item.name}: missing ${path}`)
   }
-  const page = `content/docs/components/${item.name}.mdx`
   if (existsSync(page) && !readFileSync(page, "utf8").includes(`title: ${item.title}\n`)) {
     problems.push(`${item.name}: ${page} title should be "${item.title}"`)
   }

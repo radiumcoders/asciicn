@@ -2,5 +2,132 @@
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "asciicn",
   "homepage": "https://github.com/radiumcoders/asciicn",
-  "items": []
+  "items": [
+    {
+      "name": "ascii-shader",
+      "type": "registry:ui",
+      "title": "ASCII Shader",
+      "description": "Any seed, drawn as an ASCII field in its own colours.",
+      "categories": [
+        "backgrounds"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/ascii-shader/ascii-shader.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/ascii-shader.js",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "lattice",
+      "type": "registry:ui",
+      "title": "Lattice",
+      "description": "Violet silk folding over itself, drawn in glyphs.",
+      "categories": [
+        "backgrounds"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/lattice/lattice.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ascii-shader/ascii-shader.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/ascii-shader.js",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "mirage",
+      "type": "registry:ui",
+      "title": "Mirage",
+      "description": "Blue ribbons of light that bend across the page.",
+      "categories": [
+        "backgrounds"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/mirage/mirage.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ascii-shader/ascii-shader.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/ascii-shader.js",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "monsoon",
+      "type": "registry:ui",
+      "title": "Monsoon",
+      "description": "Teal arcs sweeping through a dark field.",
+      "categories": [
+        "backgrounds"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/monsoon/monsoon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ascii-shader/ascii-shader.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/ascii-shader.js",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "velvet",
+      "type": "registry:ui",
+      "title": "Velvet",
+      "description": "Red smoke drifting slowly, in characters.",
+      "categories": [
+        "backgrounds"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/velvet/velvet.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ascii-shader/ascii-shader.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/ascii-shader.js",
+          "type": "registry:lib"
+        }
+      ]
+    }
+  ]
 }

@@ -12,7 +12,7 @@ import { SiteCode } from "@/components/docs/site-code"
 import { Steps } from "@/components/docs/steps"
 import { Tab, Tabs } from "@/components/docs/tabs"
 import { ComponentGrid } from "@/components/site/component-grid"
-import { items } from "@/lib/registry"
+import { docsUrl, items } from "@/lib/registry"
 import { registryUrl } from "@/lib/site"
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
@@ -24,7 +24,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     PropsTable,
     ComponentIndex: () => (
       <div className="not-prose my-6">
-        <ComponentGrid items={items.map(({ name, title, description }) => ({ name, title, description }))} compact />
+        <ComponentGrid items={items.map((item) => ({ name: item.name, title: item.title, description: item.description, url: docsUrl(item) }))} compact />
       </div>
     ),
     Install: ({ name }: { name: string }) => <Install url={registryUrl(name)} />,
