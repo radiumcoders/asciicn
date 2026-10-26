@@ -31,6 +31,22 @@ A field pass renders the shader on the GPU at half resolution, then an ASCII pas
 - **Calm by default.** It pauses when it's off-screen or the tab is hidden, and holds still when reduced motion is on.
 - **Monospace.** Glyphs use the `font-mono` family of your page.
 
+## Look
+
+Everything below updates live, without restarting the shader.
+
+- **Characters.** Pick a `charset`: `standard`, `classic`, `minimal`, `blocks`, `braille`, `dots`, `geometric`, `binary`, `numeric`, `hacker` or `katakana`. Or pass your own ramp as `chars`, from empty to dense.
+- **Colour.** `color="shader"` keeps the field's palette. `color="mono"` draws in your text colour, so `className="text-foreground/40"` works.
+- **Tone.** `brightness` and `contrast` reshape the field before glyphs are picked, `coverage` keeps only the brightest cells, and `invert` puts the dense glyphs in the dark parts.
+- **Layers.** `opacity` fades the glyphs, and `backdrop` lets the smooth shader show through behind them.
+- **Motion.** `speed` scales the animation; `0` holds a still frame.
+
+```tsx
+<AsciiShader seed="tidal" field="nebula" charset="braille" color="mono" contrast={0.4} backdrop={0.15} />
+```
+
+
+
 The field and colour designs follow [OpenShaders](https://openshaders.com).
 
 ## Props
