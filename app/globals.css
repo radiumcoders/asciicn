@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Monochrome, tonal. Surfaces are told apart by tone, never by borders.
+ *
+ *   ground   page background: sidebar, outline
+ *   sheet    the panel the page content sits on
+ *   plate    surfaces on the sheet: code, tables, install block
+ *   stage    the ground a live component runs on
+ *   ink      text and primary actions
+ *   dim      secondary text
+ *   wash     hover and pressed fills
+ */
+:root {
+  color-scheme: light;
+  --ground: #efefee;
+  --sheet: #ffffff;
+  --plate: #f5f5f4;
+  --stage: #fafaf9;
+  --ink: #131312;
+  --dim: #6b6a67;
+  --wash: #e7e7e5;
+  --radius: 0.625rem;
+}
+
+.dark {
+  color-scheme: dark;
+  --ground: #0d0d0c;
+  --sheet: #121211;
+  --plate: #1a1a19;
+  --stage: #161615;
+  --ink: #ecebe7;
+  --dim: #8f8e89;
+  --wash: #232321;
+}
+
+/* shadcn roles, so registry components read the same tokens. */
+:root,
+.dark {
+  --background: var(--sheet);
+  --foreground: var(--ink);
+  --card: var(--plate);
+  --card-foreground: var(--ink);
+  --popover: var(--plate);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--sheet);
+  --secondary: var(--wash);
+  --secondary-foreground: var(--ink);
+  --muted: var(--wash);
+  --muted-foreground: var(--dim);
+  --accent: var(--wash);
+  --accent-foreground: var(--ink);
+  --border: color-mix(in oklab, var(--ink) 9%, transparent);
+  --input: color-mix(in oklab, var(--ink) 12%, transparent);
+  --ring: color-mix(in oklab, var(--ink) 40%, transparent);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-ground: var(--ground);
+  --color-sheet: var(--sheet);
+  --color-plate: var(--plate);
+  --color-stage: var(--stage);
+  --color-ink: var(--ink);
+  --color-dim: var(--dim);
+  --color-wash: var(--wash);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply bg-ground text-ink antialiased;
+    scroll-padding-top: 5rem;
+  }
+  ::selection {
+    background: var(--ink);
+    color: var(--sheet);
+  }
+}
+
+/* Shiki dual themes: light by default, dark under .dark. */
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+  background-color: transparent !important;
+}
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark);
+}
+
+/* Long-form docs text. */
+.prose {
+  @apply text-[15px] leading-7 text-ink;
+}
+.prose > :where(p, ul, ol) {
+  @apply my-4 text-dim;
+}
+.prose :where(p, li) strong {
+  @apply font-medium text-ink;
+}
+.prose > h2 {
+  @apply mt-14 mb-4 scroll-mt-24 text-xl font-semibold tracking-tight text-ink;
+}
+.prose > h3 {
+  @apply mt-10 mb-3 scroll-mt-24 text-base font-semibold tracking-tight text-ink;
+}
+.prose :where(h2, h3) a {
+  @apply no-underline;
+}
+.prose :where(p, li) a {
+  @apply font-medium text-ink underline decoration-dim/40 underline-offset-4 transition-colors hover:decoration-ink;
+}
+.prose > ul {
+  @apply list-disc pl-5 marker:text-dim/60;
+}
+.prose > ol {
+  @apply list-decimal pl-5 marker:text-dim;
+}
+.prose li {
+  @apply my-1.5 pl-1;
+}
+.prose :not(pre) > code:not(:where(.not-prose *)) {
+  @apply rounded-md bg-plate px-1.5 py-0.5 font-mono text-[0.85em] text-ink;
+}

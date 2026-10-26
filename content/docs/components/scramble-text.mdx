@@ -1,0 +1,28 @@
+---
+title: Scramble Text
+description: Text that decodes itself from random glyphs.
+---
+
+<ComponentPreview name="scramble-text" />
+
+## Installation
+
+<Install name="scramble-text" />
+
+## Usage
+
+```tsx
+import { ScrambleText } from "@/components/ui/scramble-text"
+
+export function Example() {
+  return <ScrambleText text="access granted" trigger="view" />
+}
+```
+
+Changing `text` doesn't replay the effect by itself. Give the component a `key` when you want each new string to scramble in.
+
+## Props
+
+<PropsTable name="scramble-text" type="ScrambleTextProps" />
+
+It also accepts every `<span>` attribute, passed to the root element.

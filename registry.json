@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "asciicn",
+  "homepage": "https://github.com/radiumcoders/asciicn",
+  "items": [
+    {
+      "name": "ascii-field",
+      "type": "registry:ui",
+      "title": "ASCII Field",
+      "description": "A living field of characters that swells under the pointer.",
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/ascii-field/ascii-field.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "ascii-spinner",
+      "type": "registry:ui",
+      "title": "ASCII Spinner",
+      "description": "Terminal-style loaders built from plain characters.",
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/ascii-spinner/ascii-spinner.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "scramble-text",
+      "type": "registry:ui",
+      "title": "Scramble Text",
+      "description": "Text that decodes itself from random glyphs.",
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/scramble-text/scramble-text.tsx", "type": "registry:ui" }]
+    }
+  ]
+}

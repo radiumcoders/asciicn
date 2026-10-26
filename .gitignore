@@ -1,0 +1,11 @@
+node_modules
+.next
+.source
+out
+next-env.d.ts
+*.tsbuildinfo
+.vercel
+.env*
+public/r
+registry/demos.tsx
+.DS_Store

@@ -1,0 +1,28 @@
+---
+title: Installation
+description: Add asciicn components to a project that already uses shadcn/ui.
+---
+
+## Set up shadcn
+
+asciicn components install through the shadcn CLI. If your project doesn't use it yet, run `init` first:
+
+```bash
+npx shadcn@latest init
+```
+
+## Add a component
+
+Pick a component from the sidebar and run its install command. For example:
+
+<Install name="scramble-text" />
+
+The file lands in `components/ui`, ready to import:
+
+```tsx
+import { ScrambleText } from "@/components/ui/scramble-text"
+
+export function Hero() {
+  return <ScrambleText text="hello, world" />
+}
+```
